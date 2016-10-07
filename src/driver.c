@@ -12,12 +12,15 @@ int main(int argc, char ** argv){
   int lda = allouer_matrice(&A, m, n);
   int i, j;
 
+  //Initialisation de la Matrice
+
   for (i = 0; i < m; ++i){
     for (j = 0; j < n; ++j){
       A[i+j*lda] = (double) i;
     }
   }
 
+  //Affichage de la Matrice
   affiche(m, n, A, lda, stdout);
 
 
@@ -26,11 +29,13 @@ int main(int argc, char ** argv){
   int incx = allouer_vecteur(&X, m);
   int incy = allouer_vecteur(&Y, m);
 
+  //Initialisation des vecteurs
   for (i = 0; i < m; ++i){
     X[i] = i;
     Y[i] = i;
   }
 
+  //Test du Produit Scalaire
   double dot = cblas_ddot(m, X, incx, Y, incy);
 
   printf ("    X = ");

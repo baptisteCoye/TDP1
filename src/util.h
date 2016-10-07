@@ -14,11 +14,39 @@
  */
 
 
-
+/*!
+ * \brief alloue l'espace necessaire a la création d'un vecteur de taille size 
+ * \details stockee par colonnes (Order == CBlasColMajor), retourne la Leading Dimension
+ *
+ * \param vecteur adresse du vecteur a creer
+ * \param size taille du vecteur désiré
+ */
 int allouer_vecteur(double ** vecteur, int size);
+
+
+/*!
+ * \brief désalloue l'espace réservé a un vecteur déjà crée 
+ * \param vecteur adresse du vecteur désallouer
+ */
 void desallouer_vecteur(double * vecteur);
 
+
+/*!
+ * \brief alloue l'espace necessaire a la création d'une matrice de taille (m,n)(m lignes, n colonnes) 
+ * \details stockee par colonnes (Order == CBlasColMajor), retourn la Leading Dimension
+ *
+ * \param vecteur adresse de la matrice a creer
+ * \param m nombre de lignes de la matrice
+ * \param n nombre de colonnes de la matrice
+ */
 int allouer_matrice(double ** matrice, int m, int n);
+
+
+/*!
+ * \brief désalloue l'espace réservé a une matrice déjà crée 
+ *
+ * \param matrice adresse de la matrice à désallouer
+ */
 void desallouer_matrice(double * matrice);
 
 /*!
