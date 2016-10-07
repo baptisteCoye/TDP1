@@ -3,9 +3,7 @@ project(TD1_PRCD)
 
 add_library(util SHARED util.c)
 add_library(ddot SHARED ddot.c)
+add_library(perf SHARED perf.c)
 
 add_executable(driver driver.c)
-target_link_libraries(driver util ddot)
-
-add_executable(testddot testddot.c)
-target_link_libraries(driver util ddot)
+target_link_libraries(driver util ddot perf)
