@@ -21,8 +21,6 @@ void desallouer_matrice(double * matrix){
 
 
 void affiche(int m, int n, double * a, int lda, FILE* flux){
-
-
   int i, j;
   for (i = 0; i < m; ++i){
     for (j = 0; j < n; ++j){
