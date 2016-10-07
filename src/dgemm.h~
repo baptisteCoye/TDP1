@@ -1,6 +1,0 @@
-#ifndef DGEMM_H
-#define DGEMM_H
-
-void cblas_dgemm_scalaire(const int m, const double * X, const int ldx, const double * Y, const int ldy);
-
-#endif
