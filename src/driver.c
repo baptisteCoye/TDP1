@@ -31,7 +31,7 @@ int main(int argc, char ** argv){
     Y[i] = i;
   }
 
-  double dot = ddot(m, X, incx, Y, incy);
+  double dot = cblas_ddot(m, X, incx, Y, incy);
 
   printf ("    X = ");
   affiche(1, m, X, incx, stdout);

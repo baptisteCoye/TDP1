@@ -1,6 +1,7 @@
-#include "ddot.h"
+#include "cblas.h"
 
-double ddot(int m, double * DX, int INCX, double * DY, int INCY){
+double cblas_ddot(const int m, const double * DX, const int INCX, 
+		  const double * DY, const int INCY){
   double res = 0;
   int i, j;
 

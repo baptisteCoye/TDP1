@@ -3,7 +3,7 @@
 #include <time.h>
 
 #include "util.h"
-#include "ddot.h"
+#include "cblas.h"
 
 int main(int argc, char ** argv){
   double * X, * Y;
@@ -20,7 +20,7 @@ int main(int argc, char ** argv){
       Y[i] = i;
     }
 
-    ddot(m, X, incx, Y, incy);
+    cblas_ddot(m, X, incx, Y, incy);
 
     desallouer_vecteur(X);
     desallouer_vecteur(Y);
