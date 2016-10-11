@@ -5,6 +5,7 @@
 #include "util.h"
 #include "cblas.h"
 #include "perf.h"
+#include "dgemm.h"
 
 int main(int argc, char ** argv){
   
@@ -13,7 +14,7 @@ int main(int argc, char ** argv){
   int m = 10, n = 7;
   double * A;
   int lda = allouer_matrice(&A, m, m);
-  int i, j;
+  int i, j, k;
 
   //Initialisation de la Matrice
 
@@ -78,5 +79,97 @@ int main(int argc, char ** argv){
   desallouer_matrice(A);
   desallouer_matrice(B);
   desallouer_matrice(C);
+
+  ////////////////////////////////////////////////////////////
+  ///         Test des multiplications de matrices         ///
+  ////////////////////////////////////////////////////////////
+
+  printf("###########################################\n                 matmult\n###########################################\n\n");
+
+  int M = 1000;
+
+  perf_t kij, ijk, jik;
+  perf_t totalkij, totalijk, totaljik;
+
+#ifdef _OPENMP
+  printf("Open mp ok\n");
+#else 
+  printf("Open mp ko\n");
+#endif
   
+
+  while (M == 1000){
+    printf("##############\nperf avec M = %d :\n\n", M);
+    lda = allouer_matrice(&A, M, M);
+    ldb = allouer_matrice(&B, M, M);
+    ldc = allouer_matrice(&C, M, M);
+
+    for (i = 0; i < M; ++i){
+      for (k = 0; k < M; ++k){
+	A[i+k*lda] = (double) k;
+      }
+    }
+
+    for (k = 0; k < M; ++k)
+      for (j = 0; j < M; ++j)
+	B[k+j*ldb] = 1;
+ 
+    /* printf("A = \n"); */
+    /* affiche(M,M,A,lda,stdout); */
+    /* printf("B = \n"); */
+    /* affiche(M,M,B,ldb,stdout); */
+
+
+    perf(&begin);
+    matmultKIJ(M,M,M, 
+	       A, lda,
+	       B, ldb,
+	       C, ldc);
+    perf(&kij);
+
+    /* printf("Ckij = \n"); */
+    /* affiche(M,M,C,ldc,stdout); */
+
+    printf("KIJ : \n\n");
+    perf_diff(&begin, &kij);
+    printf("   Temps d'execution : "); perf_printmicro(&kij);
+    printf("   MFlops/s : %f\n\n", perf_mflops(&kij, (long) M*M*M));
+
+    perf(&begin);
+    matmultIJK(M,M,M, 
+	       A, lda,
+	       B, ldb,
+	       C, ldc);
+    perf(&ijk);
+    /* printf("Cijk = \n"); */
+    /* affiche(M,M,C,ldc,stdout); */
+    
+    printf("IJK : \n\n");
+    printf("perf avec M = %d :\n", M);
+    perf_diff(&begin, &ijk);
+    printf("   Temps d'execution : "); perf_printmicro(&ijk);
+    printf("   MFlops/s : %f\n\n", perf_mflops(&ijk, (long) M*M*M));
+
+    perf(&begin);
+    matmultJIK(M,M,M, 
+	       A, lda,
+	       B, ldb,
+	       C, ldc);
+    perf(&jik);
+
+    /* printf("Cjik = \n"); */
+    /* affiche(M,M,C,ldc,stdout); */
+    
+    printf("JIK : \n\n");
+    printf("perf avec M = %d :\n", M);
+    perf_diff(&begin, &jik);
+    printf("   Temps d'execution : "); perf_printmicro(&jik);
+    printf("   MFlops/s : %f\n\n", perf_mflops(&jik, (long) M*M*M));
+
+    desallouer_matrice(A);
+    desallouer_matrice(B);
+    desallouer_matrice(C);
+
+    M += 100;
+  }
 }

@@ -1,5 +1,5 @@
 #include "util.h"
-
+#include "cblas.h"
 
 int allouer_vecteur(double ** vecteur, int size){
   *vecteur = malloc(sizeof(double) * size);
@@ -29,3 +29,4 @@ void affiche(int m, int n, double * a, int lda, FILE* flux){
     fprintf(flux, "\n\n");
   }
 }
+
