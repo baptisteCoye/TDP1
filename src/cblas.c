@@ -41,7 +41,7 @@ void cblas_daxpy(const int N, const double alpha, const double *X,
 void cblas_saxpy(const int N, const float alpha, const float *X,
                  const int incX, float *Y, const int incY){
 #pragma omp parallel for default(none) shared(X, Y)
-  for (int i = 0, i < N; ++i){
+  for (int i = 0; i < N; ++i){
     Y[i*incY] += alpha*X[i/incX];
   }
 }
