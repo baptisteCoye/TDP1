@@ -15,8 +15,8 @@ int allouer_matrice(double ** matrice, int m, int n){
   return m;
 }
 
-void desallouer_matrice(double * matrix){
-  free(matrix);
+void desallouer_matrice(double * matrice){
+  free(matrice);
 }
 
 
