@@ -46,6 +46,14 @@ int main(int argc, char ** argv){
     }
 
     perf(&begin);
+    cblas_daxpy(m, 2, X, incx, Y, incy);
+    perf(&end);
+    printf("perf daxpy avec m = %d :\n",m);
+    perf_diff(&begin, &end);
+    printf("   Temps d'execution : "); perf_printmicro(&end);
+    printf("   MFlops/s : %f\n\n", perf_mflops(&end, (long) m));
+    
+    perf(&begin);
     cblas_ddot(m, X, incx, Y, incy);
     perf(&end);
 
@@ -79,7 +87,7 @@ int main(int argc, char ** argv){
   desallouer_matrice(A);
   desallouer_matrice(B);
   desallouer_matrice(C);
-
+  
   ////////////////////////////////////////////////////////////
   ///         Test des multiplications de matrices         ///
   ////////////////////////////////////////////////////////////
@@ -172,4 +180,5 @@ int main(int argc, char ** argv){
 
     M += 100;
   }
+  
 }
