@@ -89,6 +89,31 @@ void cblas_dgemm(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPOSE TransA
   }
 }
 
+
+void cblas_dgemv(const enum CBLAS_ORDER Order,
+                 const enum CBLAS_TRANSPOSE TransA, const int M, const int N,
+                 const double alpha, const double *A, const int lda,
+                 const double *X, const int incX, const double beta,
+                 double *Y, const int incY){
+  assert(Order == CblasColMajor);
+
+  int i;
+
+  if (TransA == CblasNoTrans){
+#pragma omp parallel for default(none) private(i) shared(Y)
+    for (i = 0; i < M; ++i){
+      Y[i*incY] = beta*Y[i*incY] + alpha*cblas_ddot(N, &(A[i]), lda, X, incX);
+    }
+  } else if (TransA == CblasTrans) {
+#prama omp parallel for default(none) private(i) shared(Y)
+    for (i = 0; i < N; ++i)
+      Y[i*incY] = beta*Y[i*incY] + alpha*cblas_ddot(M, &(A[i*lda], 1, X, incX);
+  } else {
+    fprintf(stderr, "cblas_dgemv erreur : CblasConjTrans non implémenté.\n");
+  }
+}
+
+
 void cblas_daxpy(const int N, const double alpha, const double *X,
 		 const int incX, double *Y, const int incY){
 #pragma omp parallel for default(none) shared(X, Y)
