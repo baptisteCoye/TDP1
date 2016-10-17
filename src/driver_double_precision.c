@@ -75,12 +75,19 @@ int main(int argc, char ** argv){
   for (i = 0; i < m*m; ++i){
     B[i] = 1;
   }
-
+  printf("mabite\n");
+  affiche(m, m, A, lda, stdout);
+  printf("moncul\n");
   affiche(m, m, B, ldb, stdout);
   double * C;
   int ldc = allouer_matrice(&C, m, m);
 
-  cblas_dgemm_scalaire(m, m, A, lda, B, ldb, C, ldc);
+  for (i = 0; i < m*m; ++i)
+    C[i] = 1;
+  printf("mescouilles\n");
+  affiche(m, m, C, ldc, stdout);
+
+  cblas_dgemm(Order, CblasNoTrans, CblasNoTrans, m, m, m, 1, A, lda, B, ldb, 2, C, ldc);
 
   affiche(m, m, C, ldc, stdout);
 
