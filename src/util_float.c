@@ -1,8 +1,6 @@
-#ifndef UTIL_FLOAT_H
-#define UTIL_FLOAT_H
-
 #include <stdio.h>
 #include <stdlib.h>
+#include "util_float.h"
 
 int allouer_vecteur(float ** vecteur, int size){
   *vecteur = malloc(sizeof(float) * size);
@@ -10,7 +8,7 @@ int allouer_vecteur(float ** vecteur, int size){
 }
 
 void desallouer_vecteur(float ** vecteur){
-  free(vector);
+  free(vecteur);
 }
 
 int allouer_matrice(float ** matrice, int m, int n){
@@ -31,5 +29,3 @@ void affiche(int m, int n, float * a, int lda, FILE* flux){
     fprintf(flux, "\n\n");
   }
 }
-
-#endif
