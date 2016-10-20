@@ -108,12 +108,6 @@ int main(int argc, char ** argv){
 
   perf_t kij, ijk, jik;
   perf_t totalkij, totalijk, totaljik;
-
-#ifdef _OPENMP
-  //printf("Open mp ok\n");
-#else 
-  //printf("Open mp ko\n");
-#endif
   
   while (M < 1000){
     //    printf("##############\nperf avec M = %d :\n\n", M);
