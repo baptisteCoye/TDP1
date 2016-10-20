@@ -27,7 +27,7 @@ void cblas_dgemm(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPOSE TransA
   assert(Order == CblasColMajor);
 
   int i, j, k;
-  int Nt = 4;
+  int Nt = 1;
 
   /*#ifdef _OPENMP
     Nt = omp_get_num_threads();
