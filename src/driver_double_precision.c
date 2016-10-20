@@ -27,32 +27,32 @@ int main(int argc, char ** argv){
   //Affichage de la Matrice
   printf("#%f#\n", A[0]);
   affiche(m, m, A, lda, stdout);
-
+  
   double * X, * Y;
   m = 50;
-
+  
   perf_t begin, end;
 
   while(m < 1000000){
-
+    
     int incx = allouer_vecteur(&X, m);
     int incy = allouer_vecteur(&Y, m);
     //Test du Produit Scalaire
     double dot = cblas_ddot(m, X, incx, Y, incy);
-
+    
     for (i = 0; i < m; ++i){
       X[i] = i;
       Y[i] = i;
     }
-
-    perf(&begin);
+    /*
+      perf(&begin);
     cblas_daxpy(m, 2, X, incx, Y, incy);
     perf(&end);
     printf("perf daxpy avec m = %d :\n",m);
     perf_diff(&begin, &end);
     printf("   Temps d'execution : "); perf_printmicro(&end);
     printf("   MFlops/s : %f\n\n", perf_mflops(&end, (long) m));
-    
+    */
     perf(&begin);
     cblas_ddot(m, X, incx, Y, incy);
     perf(&end);
@@ -67,7 +67,8 @@ int main(int argc, char ** argv){
 
     m += m/4;
   }
-  
+
+
   m = 10;
   double * B;
   int ldb = allouer_matrice(&B, m, m);
@@ -75,9 +76,9 @@ int main(int argc, char ** argv){
   for (i = 0; i < m*m; ++i){
     B[i] = 1;
   }
-  printf("mabite\n");
+
   affiche(m, m, A, lda, stdout);
-  printf("moncul\n");
+
   affiche(m, m, B, ldb, stdout);
   double * C;
   int ldc = allouer_matrice(&C, m, m);
