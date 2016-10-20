@@ -76,7 +76,7 @@ void cblas_dgemm(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPOSE TransA
   }
   printf("\n");
 */
-#pragma omp parallel for default(none) private(i, j, k) shared(C, sizeM, sizeN, sizeK, beginM, beginN, beginK)
+#pragma omp parallel for default(none) private(i, j, k) shared(C, sizeM, sizeN, sizeK, beginM, beginN, beginK, Nt, A, B)
   for (i = 0; i < Nt; ++i){
     for (j = 0; j < Nt; ++j){
       for (k = 0; k < Nt; ++k){
