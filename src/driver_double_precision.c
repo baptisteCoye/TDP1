@@ -138,10 +138,12 @@ int main(int argc, char ** argv){
 
 
     perf(&begin);
-    matmultKIJ(M,M,M, 
+    /*matmultKIJ(M,M,M, 
 	       A, lda,
 	       B, ldb,
 	       C, ldc);
+    */
+    cblas_dgemm(Order, CblasNoTrans, CblasNoTrans, M, M, M, 1, A, lda, B, ldb, 1, C, ldc);
     perf(&kij);
 
     /* printf("Ckij = \n"); */
@@ -150,6 +152,7 @@ int main(int argc, char ** argv){
     //printf("KIJ : \n\n");
     perf_diff(&begin, &kij);
     printf("%d %f ", M, perf_mflops(&kij, (long) M*M*M));
+    /*
     //perf_printmicro(&kij);
     //printf("   MFlops/s : %f\n\n", perf_mflops(&kij, (long) M*M*M));
   
@@ -186,6 +189,7 @@ int main(int argc, char ** argv){
     //printf("   Temps d'execution : "); perf_printmicro(&jik);
     //printf("   MFlops/s : %f\n\n", perf_mflops(&jik, (long) M*M*M));
     printf("%f\n", perf_mflops(&jik, (long) M*M*M));
+*/
     desallouer_matrice(A);
     desallouer_matrice(B);
     desallouer_matrice(C);

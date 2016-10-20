@@ -27,11 +27,12 @@ void cblas_dgemm(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPOSE TransA
   assert(Order == CblasColMajor);
 
   int i, j, k;
-  int Nt = 1;
-
-  /*#ifdef _OPENMP
+ // int Nt = 1;
+  int Nt;
+  #ifdef _OPENMP
     Nt = omp_get_num_threads();
-    #endif*/
+    printf("%d", Nt);
+  #endif
 
   printf("Nt = %d\n", Nt);
 
@@ -62,7 +63,7 @@ void cblas_dgemm(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPOSE TransA
     tmpK -= sizeK[i];    
     tmpNt--;
   }
-
+/*
   printf("size M : ");
   for (i = 0; i < Nt; ++i){
     printf("%d ", sizeM[i]);
@@ -74,7 +75,7 @@ void cblas_dgemm(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPOSE TransA
     printf("%d ", beginM[i]);
   }
   printf("\n");
-
+*/
   for (i = 0; i < Nt; ++i){
     for (j = 0; j < Nt; ++j){
       for (k = 0; k < Nt; ++k){
@@ -83,7 +84,7 @@ void cblas_dgemm(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPOSE TransA
 			     1, &(A[beginK[k]*lda+beginM[i]]), lda, 
 			     &(B[beginK[k]+beginN[j]*ldb]), ldb,
 			     1, &(C[beginM[i]+beginN[j]*ldc]), ldc);
-	printf("i = %d, sizeM[i] = %d\n", i, sizeM[i]);
+//	printf("i = %d, sizeM[i] = %d\n", i, sizeM[i]);
       }
     }
   }
@@ -160,14 +161,14 @@ void cblas_dgemm_scalaire(const enum CBLAS_ORDER Order, const enum CBLAS_TRANSPO
   assert(Order == CblasColMajor);
   
   int i, j;
-
+/*
   printf("Call to cblas_dgemm_scalaire, variables are :\n");
   printf("M = %d\n", M);
   printf("N = %d\n", N);
   printf("lda = %d\n", lda);
   printf("ldb = %d\n", ldb);
   printf("ldc = %d\n", ldc);
-
+*/
   if ((TransA == CblasNoTrans) && (TransB == CblasNoTrans)){
     for (j = 0; j < N; ++j){
       for (i = 0; i < M; ++i){
