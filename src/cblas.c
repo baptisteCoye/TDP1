@@ -109,9 +109,8 @@ void cblas_dgemv(const enum CBLAS_ORDER Order,
   } else if (TransA == CblasTrans) {
 #pragma omp parallel for default(none) private(i) shared(Y,X,A)
     for (i = 0; i < N; ++i)
-      Y[i*incY] = beta*Y[i*incY] + alpha*cblas_ddot(M, &A[i*lda], 1, X, incX);
-  }
-    else {
+      Y[i*incY] = beta*Y[i*incY] + alpha*cblas_ddot(M, &(A[i*lda]), 1, X, incX);
+  } else {
     fprintf(stderr, "cblas_dgemv erreur : CblasConjTrans non implémenté.\n");
   }
 }
